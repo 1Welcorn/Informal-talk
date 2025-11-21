@@ -260,9 +260,11 @@ const FillInTheBlanksPractice = ({ playAudio, speakText, preloadAudio, stopCurre
         if (Array.isArray(dialogue.correctWord) && dialogue.correctWord.length > 0) {
             console.log(`🔊 Pre-loading audio for "${dialogue.title}"...`);
             
+            const correctWords = dialogue.correctWord as string[];
+            
             // Generate all possible sentence combinations
-            dialogue.correctWord.forEach((word, index) => {
-                const wordsUpToThis = dialogue.correctWord.slice(0, index + 1).sort();
+            correctWords.forEach((word, index) => {
+                const wordsUpToThis = correctWords.slice(0, index + 1).sort();
                 const sentenceToPreload = `${dialogue.promptPrefix} ${wordsUpToThis.join(' and ')}.`;
                 
                 // Stagger API requests to avoid rate limiting (15 req/min = 1 every 4 seconds)
