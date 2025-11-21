@@ -228,11 +228,13 @@ const FillInTheBlanksPractice = ({ playAudio, speakText, stopCurrentAudio, compl
         const isCorrect = Array.isArray(selectedDialogue.correctWord) && selectedDialogue.correctWord.includes(word);
 
         if (isCorrect) {
+            // Immediately show loading state for instant feedback
+            setIsSpeaking(true);
+            
             const newCorrectWords = [...correctlySelected, word].sort();
             setCorrectlySelected(newCorrectWords);
 
             const sentenceToSpeak = `${selectedDialogue.promptPrefix} ${newCorrectWords.join(' and ')}.`;
-            setIsSpeaking(true);
             speakText(sentenceToSpeak, () => setIsSpeaking(false));
         } else {
             setIncorrectlySelected(prev => [...prev, word]);
