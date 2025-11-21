@@ -269,8 +269,17 @@ const FillInTheBlanksPractice = ({ playAudio, speakText, stopCurrentAudio, compl
              <div className="bg-white text-secondary border border-border-gray rounded-2xl shadow-lg p-6 md:p-12 w-full animate-fade-in flex-grow flex flex-col justify-center">
                 <h2 className="text-3xl md:text-5xl font-bold mb-4 text-center">{selectedDialogue.title}</h2>
                 <p className="text-xl md:text-2xl text-slate-600 text-center mb-8">{selectedDialogue.locationSentence}</p>
-                <div className="bg-light-gray p-4 md:p-6 rounded-lg text-2xl md:text-4xl text-center font-semibold mb-8 min-h-[60px] md:min-h-[100px] flex items-center justify-center">
+                <div className="bg-light-gray p-4 md:p-6 rounded-lg text-2xl md:text-4xl text-center font-semibold mb-8 min-h-[60px] md:min-h-[100px] flex flex-col items-center justify-center">
                     <p>{selectedDialogue.promptPrefix} <span className={`text-primary font-bold ${isSpeaking ? 'animate-subtle-pulse' : ''}`}>{displayedWords || '...'}</span></p>
+                    {isSpeaking && (
+                        <div className="mt-3 flex items-center gap-2 text-sm md:text-base text-indigo-600 animate-fade-in">
+                            <svg className="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                            <span>Loading audio...</span>
+                        </div>
+                    )}
                 </div>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
                     {selectedDialogue.words?.map(word => {
