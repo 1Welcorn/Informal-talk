@@ -235,7 +235,7 @@ const DialoguePractice: React.FC<DialoguePracticeProps> = ({ onBack, audioCache,
     );
 };
 
-const FillInTheBlanksPractice = ({ playAudio, speakText, stopCurrentAudio, completedDialogues, onDialogueComplete }: { playAudio: (text: string) => void, speakText: (text: string, onEnded?: () => void) => void, stopCurrentAudio: () => void, completedDialogues: number[], onDialogueComplete: (dialogueId: number) => void }) => {
+const FillInTheBlanksPractice = ({ playAudio, speakText, preloadAudio, stopCurrentAudio, completedDialogues, onDialogueComplete }: { playAudio: (text: string) => void, speakText: (text: string, onEnded?: () => void) => void, preloadAudio: (text: string) => void, stopCurrentAudio: () => void, completedDialogues: number[], onDialogueComplete: (dialogueId: number) => void }) => {
     const [view, setView] = useState<'list' | 'practice'>('list');
     const [selectedDialogue, setSelectedDialogue] = useState<Dialogue | null>(null);
     const [correctlySelected, setCorrectlySelected] = useState<string[]>([]);
