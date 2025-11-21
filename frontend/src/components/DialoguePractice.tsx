@@ -62,9 +62,11 @@ interface DialoguePracticeProps {
     audioContext: AudioContext | null;
     completedDialogues: number[];
     onDialogueComplete: (dialogueId: number) => void;
+    onFormalityComplete: (correct: number, total: number) => void;
+    formalityScore: {correct: number, total: number} | null;
 }
 
-const DialoguePractice: React.FC<DialoguePracticeProps> = ({ onBack, audioCache, audioContext, completedDialogues, onDialogueComplete }) => {
+const DialoguePractice: React.FC<DialoguePracticeProps> = ({ onBack, audioCache, audioContext, completedDialogues, onDialogueComplete, onFormalityComplete, formalityScore }) => {
     // Fix: Corrected the TypeScript union type syntax by adding a '|' operator.
     const [practiceType, setPracticeType] = useState<'dialogue' | 'formality' | null>(null);
     const activeAudioSource = useRef<AudioBufferSourceNode | null>(null);
