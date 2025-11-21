@@ -1,7 +1,6 @@
 
-// Fix: Switched to Firebase v9 compat libraries to support v8 syntax.
-// Fix: Use the imported firebase namespace directly for runtime calls.
-import * as firebaseNs from "firebase/compat/app";
+// Firebase v9 compat mode imports
+import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
 import "firebase/compat/auth";
 import { firebaseConfig } from "./firebaseConfig";
@@ -18,37 +17,31 @@ let auth: any;
 let googleProvider: any;
 
 if (isFirebaseConfigured) {
-    // Check that the firebaseNs object was resolved correctly from the import.
-    if (firebaseNs && typeof firebaseNs.initializeApp === 'function') {
-        try {
-            console.log("[DEBUG] Attempting to initialize Firebase...");
-            // Initialize Firebase only if it hasn't been initialized yet.
-            if (!firebaseNs.apps.length) {
-                firebaseNs.initializeApp(firebaseConfig);
-                console.log("[DEBUG] firebase.initializeApp() called successfully.");
-            } else {
-                console.log("[DEBUG] Firebase was already initialized.");
-            }
-            // Initialize Cloud Firestore and get a reference to the service
-            db = firebaseNs.firestore();
-            console.log("[DEBUG] firebase.firestore() service obtained.");
-
-            auth = firebaseNs.auth();
-            console.log("[DEBUG] firebase.auth() service obtained.");
-
-            googleProvider = new firebaseNs.auth.GoogleAuthProvider();
-            console.log("[DEBUG] GoogleAuthProvider created.");
-
-        } catch (error) {
-            console.error(
-                "[DEBUG] Firebase initialization FAILED. Progress saving will be disabled.",
-                error
-            );
-            // Force auth to be null so the mock objects are created
-            auth = null;
+    try {
+        console.log("[DEBUG] Attempting to initialize Firebase...");
+        // Initialize Firebase only if it hasn't been initialized yet.
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+            console.log("[DEBUG] firebase.initializeApp() called successfully.");
+        } else {
+            console.log("[DEBUG] Firebase was already initialized.");
         }
-    } else {
-        console.error("[DEBUG] Firebase app object could not be resolved from the import. Progress saving is disabled.");
+        // Initialize Cloud Firestore and get a reference to the service
+        db = firebase.firestore();
+        console.log("[DEBUG] firebase.firestore() service obtained.");
+
+        auth = firebase.auth();
+        console.log("[DEBUG] firebase.auth() service obtained.");
+
+        googleProvider = new firebase.auth.GoogleAuthProvider();
+        console.log("[DEBUG] GoogleAuthProvider created.");
+
+    } catch (error) {
+        console.error(
+            "[DEBUG] Firebase initialization FAILED. Progress saving will be disabled.",
+            error
+        );
+        // Force auth to be null so the mock objects are created
         auth = null;
     }
 } else {
