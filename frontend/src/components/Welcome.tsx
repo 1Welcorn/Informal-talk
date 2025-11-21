@@ -175,20 +175,6 @@ const Welcome: React.FC<WelcomeProps> = ({ onStart, user, authInitialized, isFir
                 <div>
                     {renderContent()}
                 </div>
-                 <div className="border-t border-border-gray pt-8 mt-12">
-                    <button 
-                        onClick={handleGetLocation} 
-                        disabled={isFetchingLocation}
-                        className="bg-slate-200 hover:bg-slate-300 transition-all duration-300 text-slate-700 font-bold rounded-lg shadow-sm w-full md:w-auto text-base py-2 px-5 disabled:opacity-50 disabled:cursor-wait"
-                    >
-                        {isFetchingLocation ? 'Fetching...' : 'Show My Location'}
-                    </button>
-                    {locationInfo && (
-                        <div className="mt-4 p-4 bg-light-gray border border-border-gray rounded-lg max-w-md mx-auto">
-                            <pre className="text-left text-sm text-secondary whitespace-pre-wrap font-sans">{locationInfo}</pre>
-                        </div>
-                    )}
-                </div>
             </div>
         </div>
     );
