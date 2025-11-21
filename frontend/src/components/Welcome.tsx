@@ -22,9 +22,6 @@ const GoogleIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
 
 
 const Welcome: React.FC<WelcomeProps> = ({ onStart, user, authInitialized, isFirebaseConfigured }) => {
-    const [locationInfo, setLocationInfo] = useState<string | null>(null);
-    const [isFetchingLocation, setIsFetchingLocation] = useState(false);
-    
     const handleSignIn = () => {
         auth.signInWithPopup(googleProvider).catch((error: FirebaseAuthError) => {
             console.error("Google Sign-In Error:", error.code, error.message);
