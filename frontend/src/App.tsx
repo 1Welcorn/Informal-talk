@@ -91,6 +91,22 @@ const App: React.FC = () => {
             // Optionally, handle the error, e.g., show a notification
         }
     };
+    
+    const handleFormalityComplete = async (correct: number, total: number) => {
+        // Save formality practice score
+        if (!user || !isFirebaseConfigured) return;
+        
+        const score = { correct, total };
+        setFormalityScore(score);
+        
+        try {
+            const progressDocRef = db.collection("progress").doc(user.uid);
+            await progressDocRef.set({ formalityScore: score }, { merge: true });
+            console.log("Formality score saved:", score);
+        } catch (err) {
+            console.error("Error saving formality score:", err);
+        }
+    };
 
     return (
         <main className="h-screen w-screen bg-background">
