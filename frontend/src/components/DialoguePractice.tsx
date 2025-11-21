@@ -256,17 +256,20 @@ const FillInTheBlanksPractice = ({ playAudio, speakText, stopCurrentAudio, compl
         setIncorrectlySelected([]);
         setView('practice');
         
-        // Pre-load audio for all possible correct answer combinations
+        // Pre-load audio for all possible correct answer combinations in background
         if (Array.isArray(dialogue.correctWord) && dialogue.correctWord.length > 0) {
-            // Pre-load audio for each individual correct word
+            console.log(`🔊 Pre-loading audio for "${dialogue.title}"...`);
+            
+            // Generate all possible sentence combinations
             dialogue.correctWord.forEach((word, index) => {
                 const wordsUpToThis = dialogue.correctWord.slice(0, index + 1).sort();
                 const sentenceToPreload = `${dialogue.promptPrefix} ${wordsUpToThis.join(' and ')}.`;
                 
-                // Pre-generate audio in background (don't await, fire and forget)
+                // Stagger API requests to avoid rate limiting (15 req/min = 1 every 4 seconds)
+                // But we'll do it faster for better UX, spacing them 500ms apart
                 setTimeout(() => {
-                    speakText(sentenceToPreload, () => {}); // Empty callback to prevent UI state changes
-                }, index * 100); // Stagger requests slightly to avoid overwhelming API
+                    preloadAudio(sentenceToPreload);
+                }, index * 500);
             });
         }
     };
