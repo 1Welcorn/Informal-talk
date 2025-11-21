@@ -370,7 +370,7 @@ const FillInTheBlanksPractice = ({ playAudio, speakText, preloadAudio, stopCurre
                     )}
                 </div>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
-                    {selectedDialogue.words?.map(word => {
+                    {shuffledWords.map(word => {
                         const isCorrectlyPicked = correctlySelected.includes(word);
                         const isIncorrectlyPicked = incorrectlySelected.includes(word);
                         return (
