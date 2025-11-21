@@ -388,15 +388,28 @@ const FillInTheBlanksPractice = ({ playAudio, speakText, preloadAudio, stopCurre
 
 
 const FormalityPractice = ({ speakText, stopCurrentAudio }: { speakText: (text: string, onEnded?: () => void) => void, stopCurrentAudio: () => void }) => {
+    const MAX_QUESTIONS = 6;
     const [currentIndex, setCurrentIndex] = useState(0);
     const [selectedOption, setSelectedOption] = useState<'formal' | 'informal' | null>(null);
     const [showFeedback, setShowFeedback] = useState(false);
+    const [correctCount, setCorrectCount] = useState(0);
+    const [answeredCount, setAnsweredCount] = useState(0);
+    const [showResults, setShowResults] = useState(false);
+    const [attemptNumber, setAttemptNumber] = useState(1);
+    
     const currentScenario = formalityScenarios[currentIndex];
 
     const handleSelectOption = (option: 'formal' | 'informal') => {
         if (showFeedback) return;
         setSelectedOption(option);
         setShowFeedback(true);
+        
+        // Track if answer is correct
+        if (option === currentScenario.correct) {
+            setCorrectCount(prev => prev + 1);
+        }
+        setAnsweredCount(prev => prev + 1);
+        
         speakText(currentScenario.feedback);
     };
 
@@ -404,7 +417,29 @@ const FormalityPractice = ({ speakText, stopCurrentAudio }: { speakText: (text: 
         stopCurrentAudio();
         setShowFeedback(false);
         setSelectedOption(null);
-        setCurrentIndex((prev) => (prev + 1) % formalityScenarios.length);
+        
+        // Check if we've reached 6 questions
+        if (answeredCount >= MAX_QUESTIONS) {
+            setShowResults(true);
+        } else {
+            setCurrentIndex((prev) => (prev + 1) % formalityScenarios.length);
+        }
+    };
+    
+    const handleRetry = () => {
+        stopCurrentAudio();
+        setCurrentIndex(0);
+        setCorrectCount(0);
+        setAnsweredCount(0);
+        setShowResults(false);
+        setShowFeedback(false);
+        setSelectedOption(null);
+        setAttemptNumber(prev => prev + 1);
+    };
+    
+    const handleFinish = () => {
+        // TODO: Navigate back to main menu or show final completion
+        window.location.reload();
     };
     
     const getButtonClass = (option: 'formal' | 'informal') => {
