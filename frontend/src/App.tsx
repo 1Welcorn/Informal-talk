@@ -116,7 +116,7 @@ const App: React.FC = () => {
                     case 'section-1':
                         return <UnderstandingGotta onBack={handleBack} onNavigate={handleStart} audioContext={audioContext} audioCache={audioCache} />;
                     case 'section-2':
-                        return <DialoguePractice onBack={handleBack} audioCache={audioCache} audioContext={audioContext} completedDialogues={completedDialogues} onDialogueComplete={handleDialogueComplete} />;
+                        return <DialoguePractice onBack={handleBack} audioCache={audioCache} audioContext={audioContext} completedDialogues={completedDialogues} onDialogueComplete={handleDialogueComplete} onFormalityComplete={handleFormalityComplete} formalityScore={formalityScore} />;
                     case 'section-3':
                         return <Summary onBack={handleBack} />;
                     default:
