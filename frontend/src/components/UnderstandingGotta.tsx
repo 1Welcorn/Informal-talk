@@ -116,7 +116,7 @@ const UnderstandingGotta: React.FC<UnderstandingGottaProps> = ({ onBack, onNavig
     const [activeTab, setActiveTab] = useState<Contraction>('Gotta');
     
     const speakText = async (text: string) => {
-        if (!audioContext || !process.env.API_KEY || speakingText) return;
+        if (!audioContext || !process.env.REACT_APP_GEMINI_API_KEY || speakingText) return;
         
         setSpeakingText(text);
         const onFinish = () => setSpeakingText(null);
