@@ -1,0 +1,7 @@
+{
+  "name": "Mastering 'Gotta', 'Gonna', & 'Wanna' for Brazilians",
+  "description": "An interactive web application to help Brazilian students master the use of the informal English contractions 'gotta', 'gonna', and 'wanna' through explanations and practical dialogues.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
