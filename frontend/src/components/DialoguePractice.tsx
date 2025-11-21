@@ -389,7 +389,7 @@ const FillInTheBlanksPractice = ({ playAudio, speakText, preloadAudio, stopCurre
 };
 
 
-const FormalityPractice = ({ speakText, stopCurrentAudio }: { speakText: (text: string, onEnded?: () => void) => void, stopCurrentAudio: () => void }) => {
+const FormalityPractice = ({ speakText, stopCurrentAudio, onFormalityComplete, formalityScore }: { speakText: (text: string, onEnded?: () => void) => void, stopCurrentAudio: () => void, onFormalityComplete: (correct: number, total: number) => void, formalityScore: {correct: number, total: number} | null }) => {
     const MAX_QUESTIONS = 6;
     const [currentIndex, setCurrentIndex] = useState(0);
     const [selectedOption, setSelectedOption] = useState<'formal' | 'informal' | null>(null);
