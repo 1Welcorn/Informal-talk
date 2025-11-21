@@ -214,6 +214,20 @@ const FillInTheBlanksPractice = ({ playAudio, speakText, stopCurrentAudio, compl
         setCorrectlySelected([]);
         setIncorrectlySelected([]);
         setView('practice');
+        
+        // Pre-load audio for all possible correct answer combinations
+        if (Array.isArray(dialogue.correctWord) && dialogue.correctWord.length > 0) {
+            // Pre-load audio for each individual correct word
+            dialogue.correctWord.forEach((word, index) => {
+                const wordsUpToThis = dialogue.correctWord.slice(0, index + 1).sort();
+                const sentenceToPreload = `${dialogue.promptPrefix} ${wordsUpToThis.join(' and ')}.`;
+                
+                // Pre-generate audio in background (don't await, fire and forget)
+                setTimeout(() => {
+                    speakText(sentenceToPreload, () => {}); // Empty callback to prevent UI state changes
+                }, index * 100); // Stagger requests slightly to avoid overwhelming API
+            });
+        }
     };
 
     const handleBackToList = () => {
