@@ -422,6 +422,8 @@ const FormalityPractice = ({ speakText, stopCurrentAudio, onFormalityComplete, f
         
         // Check if we've reached 6 questions
         if (answeredCount >= MAX_QUESTIONS) {
+            // Save score to Firebase
+            onFormalityComplete(correctCount, MAX_QUESTIONS);
             setShowResults(true);
         } else {
             setCurrentIndex((prev) => (prev + 1) % formalityScenarios.length);
