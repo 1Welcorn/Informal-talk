@@ -13,6 +13,7 @@ const App: React.FC = () => {
     const [audioContext, setAudioContext] = useState<AudioContext | null>(null);
     const [audioCache] = useState(() => new Map<string, AudioBuffer>());
     const [completedDialogues, setCompletedDialogues] = useState<number[]>([]);
+    const [formalityScore, setFormalityScore] = useState<{correct: number, total: number} | null>(null);
     const [user, setUser] = useState<FirebaseUser | null>(null);
     const [authInitialized, setAuthInitialized] = useState(false);
 
