@@ -267,6 +267,14 @@ const FillInTheBlanksPractice = ({ playAudio, speakText, preloadAudio, stopCurre
         setSelectedDialogue(dialogue);
         setCorrectlySelected([]);
         setIncorrectlySelected([]);
+        
+        // Shuffle the word options every time dialogue is selected/restarted
+        if (dialogue.words) {
+            const shuffled = shuffleArray(dialogue.words);
+            setShuffledWords(shuffled);
+            console.log(`🔀 Words shuffled for "${dialogue.title}"`);
+        }
+        
         setView('practice');
         
         // Pre-load audio for all possible correct answer combinations in background
