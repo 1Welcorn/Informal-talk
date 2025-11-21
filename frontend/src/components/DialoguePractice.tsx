@@ -240,9 +240,20 @@ const DialoguePractice: React.FC<DialoguePracticeProps> = ({ onBack, audioCache,
 const FillInTheBlanksPractice = ({ playAudio, speakText, preloadAudio, stopCurrentAudio, completedDialogues, onDialogueComplete }: { playAudio: (text: string) => void, speakText: (text: string, onEnded?: () => void) => void, preloadAudio: (text: string) => void, stopCurrentAudio: () => void, completedDialogues: number[], onDialogueComplete: (dialogueId: number) => void }) => {
     const [view, setView] = useState<'list' | 'practice'>('list');
     const [selectedDialogue, setSelectedDialogue] = useState<Dialogue | null>(null);
+    const [shuffledWords, setShuffledWords] = useState<string[]>([]);
     const [correctlySelected, setCorrectlySelected] = useState<string[]>([]);
     const [incorrectlySelected, setIncorrectlySelected] = useState<string[]>([]);
     const [isSpeaking, setIsSpeaking] = useState(false);
+    
+    // Shuffle function
+    const shuffleArray = (array: string[]) => {
+        const shuffled = [...array];
+        for (let i = shuffled.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+        }
+        return shuffled;
+    };
 
     const isComplete = selectedDialogue && Array.isArray(selectedDialogue.correctWord) && correctlySelected.length === selectedDialogue.correctWord.length;
 
