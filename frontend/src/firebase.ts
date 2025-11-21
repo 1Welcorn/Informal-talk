@@ -77,9 +77,8 @@ if (!isFirebaseConfigured || !auth) {
 }
 
 // Export types for use in other components
-// Use the imported namespace for type information.
-export type FirebaseUser = firebaseNs.User;
-export type FirebaseAuthError = firebaseNs.auth.Error;
+export type FirebaseUser = firebase.User;
+export type FirebaseAuthError = firebase.auth.Error;
 
 
 export { db, auth, googleProvider };
