@@ -57,8 +57,10 @@ const App: React.FC = () => {
             if (doc.exists) {
                 const data = doc.data();
                 setCompletedDialogues(data?.completed || []);
+                setFormalityScore(data?.formalityScore || null);
             } else {
-                setCompletedDialogues([]); // No progress found for this user
+                setCompletedDialogues([]);
+                setFormalityScore(null);
             }
         });
 
