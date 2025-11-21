@@ -52,7 +52,7 @@ const App: React.FC = () => {
         }
 
         const progressDocRef = db.collection("progress").doc(user.uid);
-        const unsubscribe = progressDocRef.onSnapshot((doc) => {
+        const unsubscribe = progressDocRef.onSnapshot((doc: any) => {
             if (doc.exists) {
                 const data = doc.data();
                 setCompletedDialogues(data?.completed || []);
