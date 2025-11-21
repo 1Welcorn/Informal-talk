@@ -37,7 +37,7 @@ const App: React.FC = () => {
 
     // Effect for listening to Firebase auth state changes
     useEffect(() => {
-        const unsubscribe = auth.onAuthStateChanged(user => {
+        const unsubscribe = auth.onAuthStateChanged((user: FirebaseUser | null) => {
             setUser(user as FirebaseUser | null);
             setAuthInitialized(true);
         });
