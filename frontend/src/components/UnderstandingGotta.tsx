@@ -223,6 +223,9 @@ const UnderstandingGotta: React.FC<UnderstandingGottaProps> = ({ onBack, onNavig
                                                     <div className="flex-1">
                                                         <p className={`text-base md:text-lg font-semibold text-secondary ${speakingText === ex.informal ? 'animate-subtle-pulse' : ''}`}>{ex.informal}</p>
                                                         <p className="text-sm md:text-base text-slate-500 italic">Formal: "{ex.formal}"</p>
+                                                        {speakingText === ex.informal && (
+                                                            <p className="text-xs text-indigo-600 mt-1 animate-fade-in">🔊 Loading audio...</p>
+                                                        )}
                                                     </div>
                                                     <button onClick={() => speakText(ex.informal)} disabled={!!speakingText} className="ml-4 p-2 rounded-full bg-primary hover:bg-primary/90 transition-all disabled:opacity-50 disabled:cursor-wait" aria-label={`Listen to the phrase: ${ex.informal}`}><VolumeIcon className={`h-5 w-5 text-white ${speakingText === ex.informal ? 'animate-pulse' : ''}`} /></button>
                                                 </div>
