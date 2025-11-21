@@ -455,9 +455,74 @@ const FormalityPractice = ({ speakText, stopCurrentAudio }: { speakText: (text: 
         return 'bg-white opacity-60 border-border-gray';
     };
 
+    // Show results screen after 6 questions
+    if (showResults) {
+        const percentage = Math.round((correctCount / MAX_QUESTIONS) * 100);
+        const remainingAttempts = 3 - attemptNumber;
+        
+        return (
+            <div className="bg-white border border-border-gray text-secondary rounded-2xl shadow-lg p-6 md:p-12 w-full text-center animate-fade-in flex-grow flex flex-col justify-center max-w-2xl mx-auto">
+                <h2 className="text-3xl md:text-5xl font-bold mb-6 text-primary">🎉 Parabéns!</h2>
+                
+                <div className="bg-green-50 border border-green-200 rounded-lg p-6 mb-6">
+                    <p className="text-lg md:text-2xl font-semibold text-green-700 mb-2">Sua Pontuação:</p>
+                    <p className="text-4xl md:text-6xl font-bold text-green-600 mb-2">{correctCount}/{MAX_QUESTIONS}</p>
+                    <p className="text-2xl md:text-3xl font-semibold text-green-700">{percentage}%</p>
+                </div>
+                
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+                    <p className="text-base md:text-lg text-blue-800">
+                        <strong>Tentativa:</strong> {attemptNumber} de 3
+                    </p>
+                </div>
+                
+                {remainingAttempts > 0 ? (
+                    <div className="space-y-4">
+                        <p className="text-lg md:text-xl text-gray-700">
+                            Você ainda tem <strong className="text-primary">{remainingAttempts} {remainingAttempts === 1 ? 'chance' : 'chances'}</strong> para melhorar sua pontuação!
+                        </p>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <button 
+                                onClick={handleRetry}
+                                className="bg-primary text-white font-bold py-4 px-6 rounded-lg shadow-md hover:bg-primary/90 transition-all text-lg"
+                            >
+                                🔄 Tentar Novamente
+                            </button>
+                            <button 
+                                onClick={handleFinish}
+                                className="bg-green-600 text-white font-bold py-4 px-6 rounded-lg shadow-md hover:bg-green-700 transition-all text-lg"
+                            >
+                                ✓ Finalizar Aqui
+                            </button>
+                        </div>
+                    </div>
+                ) : (
+                    <div className="space-y-4">
+                        <p className="text-lg md:text-xl text-gray-700">
+                            Você completou todas as <strong className="text-red-600">3 tentativas</strong>.
+                        </p>
+                        <button 
+                            onClick={handleFinish}
+                            className="w-full bg-green-600 text-white font-bold py-4 px-6 rounded-lg shadow-md hover:bg-green-700 transition-all text-lg"
+                        >
+                            ✓ Finalizar
+                        </button>
+                    </div>
+                )}
+            </div>
+        );
+    }
+
     return (
          <div className="bg-white border border-border-gray text-secondary rounded-2xl shadow-lg p-6 md:p-12 w-full text-center animate-fade-in flex-grow flex flex-col justify-center">
-            <h2 className="text-2xl md:text-4xl font-bold mb-2">Formal vs. Informal</h2>
+            <div className="flex justify-between items-center mb-4">
+                <h2 className="text-2xl md:text-4xl font-bold">Formal vs. Informal</h2>
+                <div className="bg-blue-100 border border-blue-300 rounded-lg px-4 py-2">
+                    <p className="text-sm md:text-base font-semibold text-blue-800">
+                        Questão {answeredCount + 1}/{MAX_QUESTIONS}
+                    </p>
+                </div>
+            </div>
             <p className="text-base md:text-lg text-slate-600 mb-6">Escolha a melhor opção para a situação.</p>
             
             <div className="bg-light-gray p-4 rounded-lg mb-8 text-left">
@@ -484,7 +549,7 @@ const FormalityPractice = ({ speakText, stopCurrentAudio }: { speakText: (text: 
                 <div className="p-4 rounded-lg bg-indigo-50 text-indigo-800 text-base md:text-lg animate-fade-in border border-indigo-200">
                     <p>{currentScenario.feedback}</p>
                     <button onClick={handleNext} className="mt-4 bg-primary text-white font-bold py-2 px-6 rounded-lg shadow-md hover:bg-primary/90 transition-all text-base">
-                        Próximo &rarr;
+                        {answeredCount >= MAX_QUESTIONS ? 'Ver Resultados' : 'Próximo'} &rarr;
                     </button>
                 </div>
             )}
