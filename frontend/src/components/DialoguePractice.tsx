@@ -83,6 +83,47 @@ const DialoguePractice: React.FC<DialoguePracticeProps> = ({ onBack, audioCache,
         };
     }, [stopCurrentAudio]);
 
+    // Silent pre-loading function - caches audio without playing
+    const preloadAudio = async (text: string) => {
+        if (!audioContext || !process.env.REACT_APP_GEMINI_API_KEY) return;
+        
+        // Check if already cached
+        if (audioCache.get(text)) return;
+
+        try {
+            // Check IndexedDB first
+            const audioBytes = await getAudio(text);
+            if (audioBytes) {
+                const buffer = await decodeAudioData(audioBytes, audioContext, 24000, 1);
+                if(buffer) audioCache.set(text, buffer);
+                console.log(`✅ Pre-loaded audio from cache: "${text}"`);
+                return;
+            }
+
+            // Generate from Gemini API
+            const ai = new GoogleGenAI({apiKey: process.env.REACT_APP_GEMINI_API_KEY});
+            const response = await ai.models.generateContent({
+                model: "gemini-2.5-flash-preview-tts",
+                contents: [{ parts: [{ text }] }],
+                config: {
+                    responseModalities: [Modality.AUDIO],
+                    speechConfig: { voiceConfig: { prebuiltVoiceConfig: { voiceName: 'Kore' } } }
+                }
+            });
+            
+            const base64Audio = response.candidates?.[0]?.content?.parts?.[0]?.inlineData?.data;
+            if (base64Audio) {
+                const audioBytes = decode(base64Audio);
+                saveAudio(text, audioBytes); // Save to IndexedDB
+                const buffer = await decodeAudioData(audioBytes, audioContext, 24000, 1);
+                audioCache.set(text, buffer);
+                console.log(`✅ Pre-loaded audio from API: "${text}"`);
+            }
+        } catch (error) {
+            console.log(`⚠️ Failed to pre-load audio: "${text}"`, error);
+        }
+    };
+
     const speakText = async (text: string, onEnded?: () => void) => {
         if (!audioContext) {
             if (onEnded) onEnded();
