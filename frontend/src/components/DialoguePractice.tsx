@@ -228,7 +228,7 @@ const DialoguePractice: React.FC<DialoguePracticeProps> = ({ onBack, audioCache,
             </div>
             
             {!practiceType && renderSelectionScreen()}
-            {practiceType === 'dialogue' && <FillInTheBlanksPractice playAudio={playAudio} speakText={speakText} stopCurrentAudio={stopCurrentAudio} completedDialogues={completedDialogues} onDialogueComplete={onDialogueComplete} />}
+            {practiceType === 'dialogue' && <FillInTheBlanksPractice playAudio={playAudio} speakText={speakText} preloadAudio={preloadAudio} stopCurrentAudio={stopCurrentAudio} completedDialogues={completedDialogues} onDialogueComplete={onDialogueComplete} />}
             {practiceType === 'formality' && <FormalityPractice speakText={speakText} stopCurrentAudio={stopCurrentAudio} />}
 
         </div>
