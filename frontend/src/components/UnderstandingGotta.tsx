@@ -133,7 +133,7 @@ const UnderstandingGotta: React.FC<UnderstandingGottaProps> = ({ onBack, onNavig
             }
 
             if (!buffer) {
-                const ai = new GoogleGenAI({apiKey: process.env.API_KEY});
+                const ai = new GoogleGenAI({apiKey: process.env.REACT_APP_GEMINI_API_KEY});
                 const response = await ai.models.generateContent({
                     model: "gemini-2.5-flash-preview-tts",
                     contents: [{ parts: [{ text }] }],
