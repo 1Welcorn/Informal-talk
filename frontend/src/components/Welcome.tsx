@@ -53,40 +53,6 @@ const Welcome: React.FC<WelcomeProps> = ({ onStart, user, authInitialized, isFir
     const handleSignOut = () => {
         auth.signOut();
     };
-    
-    const handleGetLocation = () => {
-        if (!navigator.geolocation) {
-            setLocationInfo("Geolocation is not supported by your browser.");
-            return;
-        }
-
-        setIsFetchingLocation(true);
-        setLocationInfo("Fetching location...");
-
-        navigator.geolocation.getCurrentPosition(
-            (position) => {
-                const { latitude, longitude } = position.coords;
-                setLocationInfo(`Latitude: ${latitude}\nLongitude: ${longitude}`);
-                setIsFetchingLocation(false);
-            },
-            (error) => {
-                let errorMessage = "An error occurred while retrieving your location.";
-                switch (error.code) {
-                    case error.PERMISSION_DENIED:
-                        errorMessage = "You denied the request for Geolocation.";
-                        break;
-                    case error.POSITION_UNAVAILABLE:
-                        errorMessage = "Location information is unavailable.";
-                        break;
-                    case error.TIMEOUT:
-                        errorMessage = "The request to get user location timed out.";
-                        break;
-                }
-                setLocationInfo(errorMessage);
-                setIsFetchingLocation(false);
-            }
-        );
-    };
 
     const renderContent = () => {
         if (!authInitialized) {
