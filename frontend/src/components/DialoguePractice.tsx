@@ -270,7 +270,12 @@ const FillInTheBlanksPractice = ({ playAudio, speakText, stopCurrentAudio, compl
         return (
              <div className="bg-white text-secondary border border-border-gray rounded-2xl shadow-lg p-6 md:p-12 w-full animate-fade-in flex-grow flex flex-col justify-center">
                 <h2 className="text-3xl md:text-5xl font-bold mb-4 text-center">{selectedDialogue.title}</h2>
-                <p className="text-xl md:text-2xl text-slate-600 text-center mb-8">{selectedDialogue.locationSentence}</p>
+                <p className="text-xl md:text-2xl text-slate-600 text-center mb-4">{selectedDialogue.locationSentence}</p>
+                {correctlySelected.length === 0 && (
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-6 text-sm text-blue-800 text-center">
+                        💡 Tip: Audio may take a moment to load the first time, then it's instant!
+                    </div>
+                )}
                 <div className="bg-light-gray p-4 md:p-6 rounded-lg text-2xl md:text-4xl text-center font-semibold mb-8 min-h-[60px] md:min-h-[100px] flex flex-col items-center justify-center">
                     <p>{selectedDialogue.promptPrefix} <span className={`text-primary font-bold ${isSpeaking ? 'animate-subtle-pulse' : ''}`}>{displayedWords || '...'}</span></p>
                     {isSpeaking && (
