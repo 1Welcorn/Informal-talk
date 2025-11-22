@@ -1,5 +1,17 @@
+# Dependencies
+node_modules/
+**/node_modules/
+.pnp
+.pnp.js
+
+# Build artifacts
+build/
+dist/
+dist-ssr/
+*.local
+
 # Logs
-logs
+logs/
 *.log
 npm-debug.log*
 yarn-debug.log*
@@ -7,39 +19,58 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-*.local
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+ENV/
+env/
+pip-wheel-metadata/
+.pytest_cache/
+
+# Environment variables
+.env
+.env.*
+!.env.example
 
 # Editor directories and files
-.vscode/*
+.vscode/
 !.vscode/extensions.json
-.idea
+.idea/
 .DS_Store
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
-frontend/node_modules/.cache/default-development/0.pack
-frontend/node_modules/.cache/default-development/1.pack
-frontend/node_modules/.cache/default-development/2.pack
-frontend/node_modules/.cache/default-development/3.pack
-frontend/node_modules/.cache/default-development/4.pack
-frontend/node_modules/.cache/default-development/5.pack
-frontend/node_modules/.cache/default-development/6.pack
-frontend/node_modules/.cache/default-development/7.pack
-frontend/node_modules/.cache/default-development/8.pack
--e 
-# Environment files
-*.env
-*.env.*
--e 
-# Environment files
-*.env
-*.env.*
--e 
-# Environment files
-*.env
-*.env.*
+
+# Archives
+*.zip
+*.tar.gz
+
+# Temporary development notes (optional, remove if you want to track them)
+AUDIO_IMPROVEMENTS.md
+AUDIO_PRELOADING.md
+CLEANUP_SUMMARY.md
+CLEAR_CACHE_NOW.md
+FINAL_CHECKLIST.md
+FIREBASE_CHECKLIST.md
+FIREBASE_DEEP_CHECK.md
+FIREBASE_SETUP_GUIDE.md
+FIREBASE_STEP_BY_STEP.md
+FIX_AUDIO_GEMINI_KEY.md
+FIX_AUTH_DOMAIN.md
+FIX_CACHE_ISSUE.md
+GOOGLE_CLASSROOM_SETUP.md
+IMPLEMENTATION_PLAN.md
+TEST_AUDIO_NOW.md
+test_result.md
+VERCEL_DEPLOYMENT_FIX.md
+VERIFY_FIREBASE_KEYS.md
+package.json.bak
+
+# Cache folders
+.cache/
+frontend/node_modules/.cache/
