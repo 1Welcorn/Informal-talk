@@ -2,12 +2,8 @@
   "version": 2,
   "builds": [
     {
-      "src": "frontend/package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "buildCommand": "yarn build",
-        "distDir": "build"
-      }
+      "src": "frontend/index.html",
+      "use": "@vercel/static"
     },
     {
       "src": "backend/server.py",
@@ -16,15 +12,12 @@
   ],
   "routes": [
     {
-      "src": "/api/(.*)",
+      "src": "/api/.*",
       "dest": "backend/server.py"
     },
     {
-      "handle": "filesystem"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "index.html"
+      "src": "/.*",
+      "dest": "/index.html"
     }
   ]
 }
