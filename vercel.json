@@ -1,23 +1,13 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "frontend/index.html",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "backend/server.py",
-      "use": "@vercel/python"
-    }
-  ],
   "routes": [
     {
-      "src": "/api/.*",
+      "src": "/api/(.*)",
       "dest": "backend/server.py"
     },
     {
-      "src": "/.*",
-      "dest": "/index.html"
+      "src": "/(.*)",
+      "dest": "frontend/$1"
     }
   ]
 }
